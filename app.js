@@ -37,15 +37,13 @@ bucle: do {
         case 3:
             alert("Saliendo del sistema");
             break bucle;
-            
 
         default:
             alert("Opción no válida");
     }
 
+} while (menuInicial !== 3);
 
-} while (menuInicial !==3);
-    
 
 
 //Función para iniciar sesión a partir de un usuario y contraseña registrados en baseDeDatos:
@@ -70,23 +68,23 @@ function crearUsuario() {
     let nuevaPass = prompt("Ingrese su password");
     let existeUsuario = baseDeDatos.find(usuario => usuario.email === nuevoEmail);
 
-    if(existeUsuario){
+    if (existeUsuario) {
         alert("El usuario ya existe");
-        
-    }else {
+
+    } else {
         baseDeDatos.push({ email: nuevoEmail, password: nuevaPass, productos: [] });
-    alert("Usuario dado de alta");
+        alert("Usuario dado de alta");
     }
-    
-    
+
+
 }
 
 
 //Función para la gestión de productos una vez el usuario está dentro(email):
 function gestionDeProductos(email) {
-let menuProductos
+    let menuProductos
     bucle: do {
-         menuProductos = parseInt(prompt("\n 1.Agregar producto \n 2.Consultar producto \n 3.Cerrar sesión"));
+        menuProductos = parseInt(prompt("\n 1.Agregar producto \n 2.Consultar producto \n 3.Cerrar sesión"));
         switch (menuProductos) {
             case 1:
                 agregarProducto(email);
@@ -102,8 +100,7 @@ let menuProductos
                 alert("Opción no válida");
         }
 
-
-    } while (menuProductos ===3);
+    } while (menuProductos === 3);
 }
 
 //función para agregar productos y que se añadan a la base de datos: 
@@ -118,13 +115,15 @@ function agregarProducto(email) {
 //función para que una vez el usuario este dentro, consulte los prodc de su cesta (en base a su email):
 function consultarProducto(email) {
     let usuarioEncont = baseDeDatos.find(usuario => usuario.email === email);
-    let productos = "";
+    let producto = " ";
     for (let i = 0; i < usuarioEncont.productos.length; i++) {
-        productos = productos + ", " + usuarioEncont.productos[i];
+        producto = productos + usuarioEncont.productos[i];
+        alert("Los productos son: "+ "," + producto);
+        gestionDeProductos(email);
+
     }
 
-    alert("Los productos son: " + productos);
-    gestionDeProductos(email);
+
 
 }
 
