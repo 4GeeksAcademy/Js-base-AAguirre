@@ -19,10 +19,11 @@ const baseDeDatos = [
     }
 ]
 
+let menuInicial
 
 //Primer bucle=>nos muestra las primeras opción y luego en función de los casos nos lleva a las funciones correspondientes según la selección del usuario:
-do {
-    let menuInicial = parseInt(prompt("<<-sistema de gestión de  usuario->> \n 1. Iniciar sesión \n 2. Registrarse \n 3.salir del sistema \n \n Ingrese una opción: \n "));
+bucle: do {
+    menuInicial = parseInt(prompt("<<-Sistema de gestión de  usuario->> \n 1. Iniciar sesión \n 2. Registrarse \n 3. Salir del sistema \n \n Ingrese una opción: \n "));
 
     switch (menuInicial) {
         case 1:
@@ -35,14 +36,16 @@ do {
 
         case 3:
             alert("Saliendo del sistema");
-            break;
+            break bucle;
+            
 
         default:
             alert("Opción no válida");
     }
 
 
-} while (menuInicial !== 3);
+} while (menuInicial !==3);
+    
 
 
 //Función para iniciar sesión a partir de un usuario y contraseña registrados en baseDeDatos:
@@ -78,12 +81,13 @@ function crearUsuario() {
     
 }
 
+
 //Función para la gestión de productos una vez el usuario está dentro(email):
 function gestionDeProductos(email) {
-
-    do {
-        let menuInicial = parseInt(prompt("1.Agregar producto \n 2.Consultar producto \n 3. Cerrar sesión"));
-        switch (menuInicial) {
+let menuProductos
+    bucle: do {
+         menuProductos = parseInt(prompt("\n 1.Agregar producto \n 2.Consultar producto \n 3.Cerrar sesión"));
+        switch (menuProductos) {
             case 1:
                 agregarProducto(email);
                 break;
@@ -91,15 +95,15 @@ function gestionDeProductos(email) {
                 consultarProducto(email);
                 break;
             case 3:
-                alert("Cerrar sesión");
-                break;
+                alert("Cerrando sesión");
+                break bucle;
 
             default:
                 alert("Opción no válida");
         }
 
 
-    } while (menuInicial !== 3);
+    } while (menuProductos ===3);
 }
 
 //función para agregar productos y que se añadan a la base de datos: 
