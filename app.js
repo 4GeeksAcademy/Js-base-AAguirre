@@ -115,17 +115,22 @@ function agregarProducto(email) {
 //función para que una vez el usuario este dentro, consulte los prodc de su cesta (en base a su email):
 function consultarProducto(email) {
     let usuarioEncont = baseDeDatos.find(usuario => usuario.email === email);
-    let producto = " ";
+    let producto = "";
     for (let i = 0; i < usuarioEncont.productos.length; i++) {
-        producto = productos + usuarioEncont.productos[i];
-        alert("Los productos son: "+ "," + producto);
-        gestionDeProductos(email);
-
+        producto = producto +"," +usuarioEncont.productos[i]; 
+         
     }
-
-
-
+    
+    if(usuarioEncont.productos.length === 0){
+        alert("No tienes productos agregados");
+        
+    } else {
+        alert("Los productos son: "+producto);
+    }
+    
+    gestionDeProductos(email);
 }
+
 
 
 
