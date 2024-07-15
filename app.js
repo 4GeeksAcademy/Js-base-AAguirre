@@ -19,15 +19,25 @@ const baseDeDatos = [
     }
 ]
 
-let menuInicial
+//let menuInicial
 
 //Primer bucle=>nos muestra las primeras opción y luego en función de los casos nos lleva a las funciones correspondientes según la selección del usuario:
 bucle: do {
-    menuInicial = parseInt(prompt("<<-Sistema de gestión de  usuario->> \n 1. Iniciar sesión \n 2. Registrarse \n 3. Salir del sistema \n \n Ingrese una opción: \n "));
+    let menuInicial = parseInt(prompt("<<-Sistema de gestión de  usuario->> \n 1. Iniciar sesión \n 2. Registrarse \n 3. Salir del sistema \n \n Ingrese una opción: \n "));
 
     switch (menuInicial) {
         case 1:
-            iniciarSesion();
+            const EMAIL = prompt("Ingrese su email");
+            const PASSWORD = prompt("Ingrese su password");
+            const HAS_INICIADO_SESION = iniciarSesion(EMAIL, PASSWORD);
+            if (HAS_INICIADO_SESION) {
+                alert("Bienvenido al sistema");
+                gestionDeProductos();
+            } else {
+                alert("Introduce un email o contraseña correctos");
+                crearUsuario();
+            }
+
             break;
 
         case 2:
@@ -46,22 +56,19 @@ bucle: do {
 
 
 
-//Función para iniciar sesión a partir de un usuario y contraseña registrados en baseDeDatos:
-function iniciarSesion() {
-    let email = prompt("Ingrese su email");
-    let password = prompt("Ingrese su password");
 
-    let usuario = baseDeDatos.find(usuario => usuario.email === email && usuario.password === password);
-    if (usuario) {
-        alert("Bienvenido al sistema");
-        gestionDeProductos(email);
-    } else {
-        alert("Introduce un email o contraseña correctos");
-        crearUsuario();
-    }
+function iniciarSesion(email, password) {
+    //let email = prompt("Ingrese su email");
+    //let password = prompt("Ingrese su password");
+
+    const USUARIO_ENCONTRADO = baseDeDatos.find(usuario => usuario.email === email && usuario.password === password);
+    return USUARIO_ENCONTRADO ? true : false;
+
+
 }
 
-//función para crear un usuario y agregarlo a la baseDeDatos:
+
+
 function crearUsuario() {
 
     let nuevoEmail = prompt("ingrese su email");
@@ -79,8 +86,6 @@ function crearUsuario() {
 
 }
 
-
-//Función para la gestión de productos una vez el usuario está dentro(email):
 function gestionDeProductos(email) {
     let menuProductos
     bucle: do {
@@ -103,7 +108,7 @@ function gestionDeProductos(email) {
     } while (menuProductos === 3);
 }
 
-//función para agregar productos y que se añadan a la base de datos: 
+
 function agregarProducto(email) {
     let usuarioEncont = baseDeDatos.find(usuario => usuario.email === email);
 
@@ -112,22 +117,21 @@ function agregarProducto(email) {
     gestionDeProductos(email);
 }
 
-//función para que una vez el usuario este dentro, consulte los prodc de su cesta (en base a su email):
 function consultarProducto(email) {
     let usuarioEncont = baseDeDatos.find(usuario => usuario.email === email);
     let producto = "";
     for (let i = 0; i < usuarioEncont.productos.length; i++) {
-        producto = producto +"," +usuarioEncont.productos[i]; 
-         
+        producto = producto + "," + usuarioEncont.productos[i];
+
     }
-    
-    if(usuarioEncont.productos.length === 0){
+
+    if (usuarioEncont.productos.length === 0) {
         alert("No tienes productos agregados");
-        
+
     } else {
-        alert("Los productos son: "+producto);
+        alert("Los productos son: " + producto);
     }
-    
+
     gestionDeProductos(email);
 }
 
