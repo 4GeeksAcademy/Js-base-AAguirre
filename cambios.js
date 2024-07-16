@@ -46,7 +46,7 @@ bucle: do {
             break bucle;
 
         default:
-            alert("Opción no válida");
+            alert("Opción  no válida");
     }
 
 } while (menuInicial !== 3);
