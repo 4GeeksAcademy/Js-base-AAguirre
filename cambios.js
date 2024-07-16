@@ -119,36 +119,3 @@ function gestionDeProductos(email) {
 
     } while (menuProductos === 3);
 }
-
-
-function agregarProducto(email) {
-    let usuarioEncont = baseDeDatos.find(usuario => usuario.email === email);
-
-
-    usuarioEncont.productos.push(prompt("Ingrese el producto"));
-    alert("Producto agregado")
-    gestionDeProductos(email);
-
-}
-
-
-function consultarProducto(email) {
-    let usuarioEncont = baseDeDatos.find(usuario => usuario.email === email);
-    let producto = "";
-    for (let i = 0; i < usuarioEncont.productos.length; i++) {
-        producto = producto + "," + usuarioEncont.productos[i];
-
-    }
-
-    if (usuarioEncont.productos.length === 0) {
-        alert("No tienes productos agregados");
-    } else {
-        alert("Los productos son: " + producto);
-    }
-
-    gestionDeProductos(email);
-}
-
-
-
-
